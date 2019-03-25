@@ -3,7 +3,8 @@
 image_fetch.py
 
 INTENT: this program will download a set of image files and name the files with the
-captureEventID, species, count
+captureEventID, species, count. This program handles very specific formatted output
+from our website Savana Horizon (searchAPI).
 
 based on "standard" data products from Snapshot Serengeti Project
 1) all_images.csv (supplied by Snapshot Serengeti team)
@@ -118,10 +119,20 @@ def get_image_data(csv_file_name, base_url, image_reference_file='./all_images.c
         
     with open(csv_file_name, 'r', encoding="utf-8") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
+        # get the header row
         headers = next(csv_reader, None)
+        
+        # we are interested in CaptureEventID, ID, and Species columns
         col_captureEventID = headers.index('CaptureEventID')
-        col_imageID = headers.index("\ufeffID")
+        
+        # compensate for unicode or plain text ID
+        try:
+            col_imageID = headers.index("\ufeffID")
+        except:
+            col_imageID = headers.index("ID")
+          
         col_species = headers.index('Species')
+        
         line_count = 0
         for row in csv_reader:
             line_count += 1
@@ -197,7 +208,7 @@ def main(args):
         raise ValueError
     
     # open an outputCSV file
-    csv_output_file_name = csv_file_name[:-4] + '_output.csv'
+    csv_output_file_name = csv_file_name[:-4] + '_source.csv'
     fh = open(csv_output_file_name, 'w')
     fh.write('ID,CaptureEventID,Species,image\n')
     

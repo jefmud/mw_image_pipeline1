@@ -14,8 +14,8 @@ based on "standard" data products from Snapshot Serengeti Project
 Consensus data product is ever-growing larger!  So this will change over time.
 Gold Standard Data comes from the Wyoming group (Clune's lab)
 
-e.g. ASG0bx6j_jackal_1.jpg (would represent capture event ASG0bx6j, consensus species jackal,
-species count of 1)
+e.g. ASG0bx6j_jackal_1099.jpg (would represent capture event ID ASG0bx6j, consensus species jackal,
+consensus ID number 1099)
 
  USAGE:
 
